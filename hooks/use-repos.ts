@@ -22,7 +22,7 @@ const useRepos = (): [
   const [language, setLanguage] = useState("Any");
 
   const fetchRepos = async ({ pageParam = 0 }): Promise<Repos> => {
-    const { data } = await octokit.request("GET /search/repositories", {
+    const response = await octokit.request("GET /search/repositories", {
       sort: "stars",
       order: "desc",
       q: `created:>${getCreatedAt()}${
@@ -31,7 +31,10 @@ const useRepos = (): [
       per_page: perPage,
       page: pageParam,
     });
-    return data;
+    if (response.status !== 200) {
+      throw new Error("Bad response from GitHub");
+    }
+    return response.data;
   };
 
   return [
