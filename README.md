@@ -1,34 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Hey 👋
 
-## Getting Started
+This is a next.js repo written in Typescript. Styling is using Tailwind CSS. Playwright used for end-to-end testing.
 
-First, run the development server:
+## Run
 
-```bash
-npm run dev
-# or
-yarn dev
+1. `yarn` to install deps
+2. `yarn dev` to run local server (view on http://localhost:3000)
+3. `yarn test:e2e` to run tests
+
+## Rate limits
+
+Github has some rate limits which makes running tests abit tricky without an access token. If you want to run all the tests then do the following:
+
+1. Navigate to `hooks/use-repos`
+2. Remove the following code 👇
+
+```
+const octokit = new Octokit();
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Add replace with 👇
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
+const octokit = new Octokit({
+  auth: <insert_personal_github_access_token>,
+});
+```
